@@ -5,11 +5,15 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 
 import com.optimahorizonapps.contactmanager_sqlite.R;
 import com.optimahorizonapps.contactmanager_sqlite.model.Contact;
 import com.optimahorizonapps.contactmanager_sqlite.util.Util;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
 
@@ -49,6 +53,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         //Insert values to db row
         db.insert(Util.TABLE_NAME, null, values);
+        Log.d("DBHandler", "Contact added: " + contact.getName() + " " + contact.getPhoneNumber());
         //After inserting close the connection
         db.close();
 
@@ -71,6 +76,30 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         contact.setPhoneNumber(cursor.getString(2));
 
         return contact;
+    }
+    //Get all contacts
+    public List<Contact> getAllContacts() {
+        List<Contact> contactList = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        //Select all contacts from db table
+        String selectAll = "SELECT * FROM " + Util.TABLE_NAME;
+        Cursor cursor = db.rawQuery(selectAll, null);
+
+        //Loop through our data
+        if (cursor.moveToFirst()) {
+            do {
+                Contact contact = new Contact();
+                contact.setId(Integer.parseInt(cursor.getString(0)));
+                contact.setName(cursor.getString(1));
+                contact.setPhoneNumber(cursor.getString(2));
+
+                //Add contacts to our contact list
+                contactList.add(contact);
+
+            } while (cursor.moveToNext());
+        }
+        return contactList;
     }
 
 }
