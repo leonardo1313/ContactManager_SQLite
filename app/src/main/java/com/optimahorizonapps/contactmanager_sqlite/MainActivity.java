@@ -28,6 +28,10 @@ public class MainActivity extends AppCompatActivity {
         mike.setName("Mike");
         mike.setPhoneNumber("028438750");
 
+//        Get 1 contact
+        Contact oneContact = handler.getContact(1);
+
+        Log.d("OneC", "onCreate: " + oneContact.getName() + ", " + oneContact.getPhoneNumber());
 
 //        handler.addContact(mike);
 
