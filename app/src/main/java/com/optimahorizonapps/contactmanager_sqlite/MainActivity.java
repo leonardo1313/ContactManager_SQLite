@@ -28,12 +28,31 @@ public class MainActivity extends AppCompatActivity {
         mike.setName("Mike");
         mike.setPhoneNumber("028438750");
 
+        Contact jason = new Contact();
+        jason.setName("Jason");
+        jason.setPhoneNumber("34243657");
+
 //        Get 1 contact
-        Contact oneContact = handler.getContact(1);
+//        Contact oneContact = handler.getContact(1);
+//        oneContact.setName("New Contact");
+//        oneContact.setPhoneNumber("098765");
 
-        Log.d("OneC", "onCreate: " + oneContact.getName() + ", " + oneContact.getPhoneNumber());
+//        handler.updateContact(oneContact);
+//
+//        Log.d("OneC", "onCreate: " + oneContact.getName() + ", " + oneContact.getPhoneNumber());
 
-//        handler.addContact(mike);
+
+//        handler.addContact(jason);
+        Contact newC = new Contact();
+        newC.setName("NewContact");
+        newC.setPhoneNumber("00000000");
+
+        handler.deleteContact(newC);
+        handler.deleteContact(mike);
+        handler.deleteContact(jason);
+
+        Log.d("Count", "Total Count: " + handler.getContactsCount());
+
 
         List<Contact> contactList = handler.getAllContacts();
 
